@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 
 namespace _09._Kamino_Factory
@@ -8,15 +8,13 @@ namespace _09._Kamino_Factory
         static void Main(string[] args)
         {
             int lenght = int.Parse(Console.ReadLine());
-            string input = Console.ReadLine();
             int[] dnaSequens = new int[lenght];
+            string input = Console.ReadLine();
             
             int semple = 0;
             int max = 0;
             int sum = 0;
             int maxSum = 0;
-            
-
 
             while (input != "Clone them!")
             {
@@ -31,7 +29,6 @@ namespace _09._Kamino_Factory
                 for (int j = 0; j < arr.Length; j++)
                 {
                     sum += arr[j];
-
                 }
 
                 for (int i = 0; i < arr.Length - 1; i++)
@@ -55,7 +52,6 @@ namespace _09._Kamino_Factory
                     }
                     
                 }
-                
 
                 if (isFound)
                 {
