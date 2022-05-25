@@ -13,61 +13,78 @@ namespace _09._Kamino_Factory
 
             int currSemple = 0;
             int bestSemple = 0;
-            int startIndex = 0;
-            int previusIndex = 0;
-            int max = 0;
-            int sum = 0;
-            int dnaSum = 0;
+            
+            int bestDnaSum = 0;
+            int bestIndex = lenght;
+            int bestLen = 0;
 
             while (input != "Clone them!")
             {
-                int[] arr = input
+                int[] currentDna = input
                     .Split("!", StringSplitOptions.RemoveEmptyEntries)
                     .Select(int.Parse)
                     .ToArray();
-                
-                int counter = 0;
-                bool isFound = false;
+
                 currSemple++;
+                int sum = 0;
+                int currentLen = 0;
+                int currentBestLen = 0;
+                int currentEndIndex = 0;
+                int currentStartIndex = 0;
 
-                sum = 0;
-                for (int j = 0; j < arr.Length; j++)
+                for (int j = 0; j < currentDna.Length; j++)
                 {
-                    sum += arr[j];
-                }
-                for (int k = 0; k < arr.Length - 1; k++)
-                {
-                    if (arr[k] == arr[k + 1] && arr[k] == 1)
-                    {
-                        startIndex = k;
-                        break;
-                    }
+                    sum += currentDna[j];
                 }
 
-                for (int i = 0; i < arr.Length - 1; i++)
+                for (int a = 0; a < currentDna.Length; a++)
                 {
-                    if (arr[i] == arr[i + 1] && arr[i] == 1)
+                    if (currentDna[a] == 1)
                     {
-                        counter++;
-                        if (counter > max || startIndex < previusIndex)
+                        currentLen++;
+                        currentEndIndex = a;
+
+                        if (currentLen > currentBestLen)
                         {
-                            max = counter;
-                            dnaSum = sum;
-                            bestSequens = arr;
-                            isFound = true;
-                        }
-                        if (isFound)
-                        {
-                            bestSemple = currSemple;
+                            currentBestLen = currentLen;
                         }
                     }
+                    else
+                    {
+                        currentLen = 0;
+                    }
+
                 }
-                previusIndex = startIndex;
+                currentStartIndex = Math.Abs(currentEndIndex - currentBestLen) - 1;
+
+                if (currentBestLen >= bestLen && currentStartIndex < bestIndex )
+                {
+                    bestDnaSum = sum;
+                    bestSemple = currSemple;
+                    bestSequens = currentDna;
+                    bestLen = currentBestLen;
+                    bestIndex = currentStartIndex;
+                }
+                if (currentBestLen >= bestLen && currentStartIndex == bestIndex && sum > bestDnaSum)
+                {
+                    bestDnaSum = sum;
+                    bestSemple = currSemple;
+                    bestSequens = currentDna;
+                    bestLen = currentBestLen;
+                    bestIndex = currentStartIndex;
+                }
+                if (currentBestLen > bestLen)
+                {
+                    bestDnaSum = sum;
+                    bestSemple = currSemple;
+                    bestSequens = currentDna;
+                    bestLen = currentBestLen;
+                    bestIndex = currentStartIndex;
+                }
 
                 input = Console.ReadLine();
             }
-
-            Console.WriteLine($"Best DNA sample {bestSemple} with sum: {dnaSum}.");
+            Console.WriteLine($"Best DNA sample {bestSemple} with sum: {bestDnaSum}.");
             Console.WriteLine(string.Join(" ", bestSequens));
         }
     }
