@@ -14,7 +14,6 @@ namespace _10._LadyBugs
                     .Select(int.Parse)
                     .ToArray();
 
-
             while (true)
             {
                 int bugIndex = 0;
