@@ -35,9 +35,7 @@ namespace _10._LadyBugs
 
             while (true)
             {
-                
                 string command = Console.ReadLine();
-
                 if (command == "end")
                 {
                     break;
