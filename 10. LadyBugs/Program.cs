@@ -45,10 +45,14 @@ namespace _10._LadyBugs
                     {
                         if (direction == "right")
                         {
-                            ladyBugsFildArr[ladybugIndex] = 0;
+                            if (flyLength != 0)
+                            {
+                                ladyBugsFildArr[ladybugIndex] = 0;
+                            }
 
                             if (ladybugIndex + flyLength < ladyBugsFildArr.Length &&
-                                ladybugIndex + flyLength >= 0)
+                                ladybugIndex + flyLength >= 0 &&
+                                ladybugIndex < ladyBugsFildArr.Length - 1)
                             {
                                 if (ladyBugsFildArr[ladybugIndex + 1] == 1)
                                 {
@@ -66,13 +70,16 @@ namespace _10._LadyBugs
                                     }
                                 }
                                 ladyBugsFildArr[ladybugIndex + flyLength] = 1;
+                                continue;
                             }
-
                         }
                         else if (direction == "left")
                         {
-                            ladyBugsFildArr[ladybugIndex] = 0;
-                            
+                            if (flyLength != 0)
+                            {
+                                ladyBugsFildArr[ladybugIndex] = 0;
+                            }
+
                             if (ladybugIndex - flyLength < 0)
                             {
                                 ladyBugsFildArr[ladybugIndex] = 0;
@@ -83,10 +90,30 @@ namespace _10._LadyBugs
                                 {
                                     for (int j = ladybugIndex - 1; j >= 0; j--)
                                     {
-                                        if (ladyBugsFildArr[j] == 0)
+                                        if (ladyBugsFildArr[j] == 1)
+                                        {
+                                            continue;
+                                        }
+                                        else
                                         {
                                             ladyBugsFildArr[j] = 1;
+                                            break;
+                                        }
+
+                                    }
+                                }
+                                else if (ladyBugsFildArr[ladybugIndex + 1] == 1)
+                                {
+                                    for (int j = ladybugIndex + Math.Abs(flyLength); j < ladyBugsFildArr.Length; j++)
+                                    {
+                                        if (ladyBugsFildArr[j] == 1)
+                                        {
                                             continue;
+                                        }
+                                        else
+                                        {
+                                            ladyBugsFildArr[j] = 1;
+                                            break;
                                         }
                                     }
                                 }
