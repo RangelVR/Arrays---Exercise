@@ -8,39 +8,29 @@ namespace _10._LadyBugs
         static void Main(string[] args)
         {
             int sizeOfFild = int.Parse(Console.ReadLine());
-            string initialIndexes = Console.ReadLine();
-            int[] ladyBugsFildArr = new int[sizeOfFild];
-            int[] initialIndexesArr = initialIndexes.Split(" ", StringSplitOptions.RemoveEmptyEntries)
+            int[] initialIndexesArr = Console.ReadLine()
+                    .Split(" ", StringSplitOptions.RemoveEmptyEntries)
                     .Select(int.Parse)
                     .ToArray();
-            int bugIndex = 0;
+            int[] ladyBugsFildArr = new int[sizeOfFild];
 
-            for (int i = 0; i < initialIndexesArr.Length; i++)
+            for (int i = 0; i < ladyBugsFildArr.Length; i++)
             {
-                if (initialIndexesArr[i] >= 0 && initialIndexesArr[i] < ladyBugsFildArr.Length)
+                if (initialIndexesArr.Contains(i))
                 {
-                    for (int j = 0; j < ladyBugsFildArr.Length; j++)
-                    {
-                        bugIndex = j;
-
-                        if (initialIndexesArr[i] == bugIndex)
-                        {
-                            ladyBugsFildArr[bugIndex] = 1;
-                            break;
-                        }
-                    }
-
+                    ladyBugsFildArr[i] = 1;
                 }
             }
 
             while (true)
             {
                 string command = Console.ReadLine();
+
                 if (command == "end")
                 {
                     break;
                 }
-                
+
                 string[] commandArr = command
                     .Split(" ", StringSplitOptions.RemoveEmptyEntries)
                     .ToArray();
@@ -56,32 +46,55 @@ namespace _10._LadyBugs
                         if (direction == "right")
                         {
                             ladyBugsFildArr[ladybugIndex] = 0;
-                            if (ladybugIndex + flyLength >= ladyBugsFildArr.Length)
+
+                            if (ladybugIndex + flyLength < ladyBugsFildArr.Length &&
+                                ladybugIndex + flyLength >= 0)
                             {
-                                ladyBugsFildArr[ladybugIndex] = 0;
-                            }
-                            else
-                            {
+                                if (ladyBugsFildArr[ladybugIndex + 1] == 1)
+                                {
+                                    for (int j = ladybugIndex + 1; j < ladyBugsFildArr.Length; j++)
+                                    {
+                                        if (ladyBugsFildArr[j] == 1)
+                                        {
+                                            continue;
+                                        }
+                                        else
+                                        {
+                                            ladyBugsFildArr[j] = 1;
+                                        }
+                                        break;
+                                    }
+                                }
                                 ladyBugsFildArr[ladybugIndex + flyLength] = 1;
                             }
-                            
+
                         }
                         else if (direction == "left")
                         {
                             ladyBugsFildArr[ladybugIndex] = 0;
+                            
                             if (ladybugIndex - flyLength < 0)
                             {
                                 ladyBugsFildArr[ladybugIndex] = 0;
                             }
-                            else
+                            else if (ladybugIndex - flyLength < ladyBugsFildArr.Length)
                             {
+                                if (ladyBugsFildArr[ladybugIndex - 1] == 1)
+                                {
+                                    for (int j = ladybugIndex - 1; j >= 0; j--)
+                                    {
+                                        if (ladyBugsFildArr[j] == 0)
+                                        {
+                                            ladyBugsFildArr[j] = 1;
+                                            continue;
+                                        }
+                                    }
+                                }
                                 ladyBugsFildArr[ladybugIndex - flyLength] = 1;
                             }
                         }
                     }
-                   
                 }
-
             }
             Console.WriteLine(string.Join(" ", ladyBugsFildArr));
         }
