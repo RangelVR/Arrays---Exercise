@@ -1,37 +1,37 @@
-﻿using System;
+using System;
 using System.Linq;
 
-namespace _02._Common_Elements
+namespace MaxSequenceOfEqualElements
 {
     class Program
     {
         static void Main(string[] args)
         {
-            string[] arr1 = Console.ReadLine()
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .ToArray();
-            string[] arr2 = Console.ReadLine()
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .ToArray();
+            string[] arr1 = Console.ReadLine().Split().ToArray();
+            string[] arr2 = Console.ReadLine().Split().ToArray();
 
-            string result = string.Empty;
-
-            for (int i = 0; i < arr2.Length; i++)
+            foreach (var item2 in arr2)
             {
-                for (int j = 0; j < arr1.Length; j++)
+                foreach (var item1 in arr1)
                 {
-
-                    if (arr1[j] == arr2[i])
+                    if (item2 == item1)
                     {
-                        result += arr2[i];
-                        result += " ";
+                        Console.Write(item2 + " ");
                     }
                 }
-
             }
 
-            string[] splitResult = result.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToArray();
-            Console.WriteLine(string.Join(" ", splitResult));
+            //for (int i = 0; i < arr2.Length; i++)
+            //{
+            //    for (int j = 0; j < arr1.Length; j++)
+            //    {
+            //        if (arr2[i] == arr1[j])
+            //        {
+            //            Console.Write(arr2[i] + " ");
+            //        }
+            //    }
+            //  
+            //}
         }
     }
 }
