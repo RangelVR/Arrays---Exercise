@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Linq;
 
-namespace _03._Zig_Zag_Arrays
+namespace MaxSequenceOfEqualElements
 {
     class Program
     {
@@ -13,23 +13,18 @@ namespace _03._Zig_Zag_Arrays
 
             for (int i = 0; i < n; i++)
             {
-                int[] input = Console.ReadLine()
-                    .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                    .Select(int.Parse)
-                    .ToArray();
+                int[] arr = Console.ReadLine().Split().Select(int.Parse).ToArray();
                 if (i % 2 == 0)
                 {
-                    arr1[i] = input[0];
-                    arr2[i] = input[1];
+                    arr1[i] = arr[0];
+                    arr2[i] = arr[1];
                 }
                 else
                 {
-                    arr1[i] = input[1];
-                    arr2[i] = input[0];
+                    arr1[i] = arr[1];
+                    arr2[i] = arr[0];
                 }
-
             }
-
             Console.WriteLine(string.Join(" ", arr1));
             Console.WriteLine(string.Join(" ", arr2));
         }
