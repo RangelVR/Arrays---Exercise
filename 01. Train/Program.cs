@@ -1,24 +1,22 @@
-﻿using System;
+using System;
+using System.Linq;
 
-namespace _01._Train
+namespace MaxSequenceOfEqualElements
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int vagons = int.Parse(Console.ReadLine());
-            int[] allPassanger = new int[vagons];
-            int sum = 0;
 
-            for (int i = 0; i < vagons; i++)
+            int wagons = int.Parse(Console.ReadLine());
+            int[] train = new int[wagons];
+
+            for (int i = 0; i < wagons; i++)
             {
-                int passangers = int.Parse(Console.ReadLine());
-                allPassanger[i] = passangers;
-                sum += passangers;
+                train[i] = int.Parse(Console.ReadLine());
             }
-
-            Console.WriteLine(string.Join(" ", allPassanger));
-            Console.WriteLine(sum);
+            Console.WriteLine(string.Join(" ", train));
+            Console.WriteLine(string.Join(" ", train.Sum()));
         }
     }
 }
