@@ -7,7 +7,6 @@ namespace MaxSequenceOfEqualElements
     {
         static void Main(string[] args)
         {
-
             int wagons = int.Parse(Console.ReadLine());
             int[] train = new int[wagons];
 
