@@ -42,6 +42,26 @@ namespace _05._Top_Integers
             topIntgeres += input[input.Length - 1];
 
             Console.WriteLine(topIntgeres.Trim());
+            
+            
+            //slower solution:
+            
+            //int[] arr = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            //int startNext = 0;
+            //
+            //while (startNext <= arr.Length - 1)
+            //{
+            //    int topInteger = 0;
+            //    for (int i = startNext; i < arr.Length; i++)
+            //    {
+            //        if (arr[i] > topInteger)
+            //        {
+            //            topInteger = arr[i];
+            //            startNext = i + 1;
+            //        }
+            //    }
+            //    Console.Write(topInteger + " ");
+            //}
         }
     }
 }
