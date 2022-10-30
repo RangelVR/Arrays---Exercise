@@ -1,42 +1,37 @@
-﻿using System;
+using System;
 using System.Linq;
 
-namespace _06._Equal_Sum
+namespace MaxSequenceOfEqualElements
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int[] arr = Console.ReadLine()
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToArray();
-            
-            bool isFound = false;
+            int[] arr = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            bool foundIndex = false;
 
             for (int i = 0; i < arr.Length; i++)
             {
-                int rightSum = 0;
-                for (int k = 0; k < i; k++)
-                {
-                    rightSum += arr[k];
-                }
-
                 int leftSum = 0;
-                for (int j = arr.Length - 1; j > i; j--)
+                for (int j = 0; j < i; j++)
                 {
                     leftSum += arr[j];
+                }
+
+                int rightSum = 0;
+                for (int k = i + 1; k < arr.Length; k++)
+                {
+                    rightSum += arr[k];
                 }
 
                 if (leftSum == rightSum)
                 {
                     Console.WriteLine(i);
-                    isFound = true;
+                    foundIndex = true;
                     break;
                 }
             }
-
-            if (!isFound)
+            if (!foundIndex)
             {
                 Console.WriteLine("no");
             }
