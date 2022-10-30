@@ -1,51 +1,41 @@
-﻿using System;
+using System;
 using System.Linq;
 
-namespace _05._Top_Integers
+namespace MaxSequenceOfEqualElements
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int[] input = Console.ReadLine()
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToArray();
-            string topIntgeres = string.Empty;
+            int[] arr = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            int[] resultArr = new int[arr.Length];
+            int counter = 0;
+            bool isTopInt = false;
 
-
-            for (int i = 0; i < input.Length - 1; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
-                bool flag = false;
-                string topInt = string.Empty;
-               
-                for (int j = i; j < input.Length - 1; j++)
+                isTopInt = true;
+                for (int j = i + 1; j < arr.Length; j++)
                 {
-                    if (input[i] > input[j + 1])
+                    if (arr[i] <= arr[j])
                     {
-                        topInt = input[i].ToString();
-                        flag = true;
-                    }
-                    else
-                    {
-                        flag = false;
+                        isTopInt = false;
                         break;
                     }
                 }
-                if (flag)
+                if (isTopInt)
                 {
-                    topIntgeres += topInt;
-                    topIntgeres += " ";
+                    resultArr[counter] = arr[i];
+                    counter++;
                 }
-
             }
-            topIntgeres += input[input.Length - 1];
+            for (int i = 0; i < counter; i++)
+            {
+                Console.Write(resultArr[i] + " ");
+            }
 
-            Console.WriteLine(topIntgeres.Trim());
-            
-            
             //slower solution:
-            
+
             //int[] arr = Console.ReadLine().Split().Select(int.Parse).ToArray();
             //int startNext = 0;
             //
