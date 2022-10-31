@@ -1,29 +1,25 @@
-﻿using System;
+using System;
 using System.Linq;
 
-namespace _08._Magic_Sum
+namespace MaxSequenceOfEqualElements
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int[] arr = Console.ReadLine()
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToArray();
+            int[] arr = Console.ReadLine().Split().Select(int.Parse).ToArray();
             int magicNum = int.Parse(Console.ReadLine());
 
-            for (int i = 0; i < arr.Length - 1; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
-                for (int j = i + 1; j < arr.Length; j++)
+                for (int k = i + 1; k < arr.Length; k++)
                 {
-                    if (arr[i] + arr[j] == magicNum)
+                    if (arr[i] + arr[k] == magicNum)
                     {
-                        Console.WriteLine($"{arr[i]} {arr[j]}");
+                        Console.WriteLine($"{arr[i]} {arr[k]}");
                     }
                 }
             }
-
         }
     }
 }
