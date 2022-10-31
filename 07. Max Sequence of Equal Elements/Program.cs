@@ -1,31 +1,26 @@
-﻿using System;
+using System;
 using System.Linq;
 
-namespace _07._Max_Sequence_of_Equal_Elements
+namespace MaxSequenceOfEqualElements
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int[] arr = Console.ReadLine()
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToArray();
-
+            int[] arr = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            int seqCount = 0;
             int counter = 0;
-            int max = 0;
-            int value = 0;
+            int n = 0;
 
-            for (int i = arr.Length - 1; i > 0; i--)
+            for (int i = 0; i < arr.Length - 1; i++)
             {
-
-                if (arr[i] == arr[i - 1])
+                if (arr[i] == arr[i + 1])
                 {
                     counter++;
-                    if (counter >= max)
+                    if (counter > seqCount)
                     {
-                        value = arr[i];
-                        max = counter;
+                        n = arr[i];
+                        seqCount = counter;
                     }
                 }
                 else
@@ -33,12 +28,10 @@ namespace _07._Max_Sequence_of_Equal_Elements
                     counter = 0;
                 }
             }
-
-            for (int i = 0; i <= max; i++)
+            for (int i = 0; i <= seqCount; i++)
             {
-                Console.Write($"{value} ");
+                Console.Write(n + " ");
             }
-
         }
     }
 }
