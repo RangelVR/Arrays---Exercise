@@ -18,7 +18,6 @@ namespace MaxSequenceOfEqualElements
             int counter = 0;
             int sample = 1;
 
-
             while ((command = Console.ReadLine()) != "Clone them!")
             {
                 int[] arr = command.Split("!", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
@@ -42,7 +41,6 @@ namespace MaxSequenceOfEqualElements
                         }
                         break;
                     }
-
                 }
                 if (currCounter >= counter)
                 {
