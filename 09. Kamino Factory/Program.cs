@@ -18,28 +18,24 @@ namespace MaxSequenceOfEqualElements
             int counter = 0;
             int sample = 1;
 
+
             while ((command = Console.ReadLine()) != "Clone them!")
             {
                 int[] arr = command.Split("!", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
                 int currCounter = 0;
-                int currSum = 0;
+                int currSum = arr.Sum();
                 bool isBestIndex = true;
 
-                for (int i = 0; i < arr.Length; i++)
+                for (int i = 0; i < arr.Length - 1; i++)
                 {
-                    currSum += arr[i];
-                    for (int k = i + 1; k < arr.Length; k++)
+                    if (arr[i] + arr[i + 1] == 2)
                     {
-                        if (arr[i] + arr[k] == 2)
+                        if (isBestIndex)
                         {
-                            if (isBestIndex)
-                            {
-                                currIndex = i;
-                                isBestIndex = false;
-                            }
-                            currCounter++;
+                            currIndex = i;
+                            isBestIndex = false;
                         }
-                        break;
+                        currCounter++;
                     }
                 }
                 if (currCounter >= counter)
