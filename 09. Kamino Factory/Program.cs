@@ -1,91 +1,80 @@
 using System;
 using System.Linq;
 
-namespace _09._Kamino_Factory
+namespace MaxSequenceOfEqualElements
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int lenght = int.Parse(Console.ReadLine());
-            int[] bestSequens = new int[lenght];
-            string input = Console.ReadLine();
+            int n = int.Parse(Console.ReadLine());
+            int[] bestDNAseq = new int[n];
+            string command;
 
-            int currSemple = 0;
-            int bestSemple = 0;
-            
-            int bestDnaSum = 0;
-            int bestIndex = lenght;
-            int bestLen = 0;
+            int bestSum = 0;
+            int bestSample = 0;
+            int currIndex = 0;
+            int bestIndex = int.MaxValue;
+            int counter = 0;
+            int sample = 1;
 
-            while (input != "Clone them!")
+
+            while ((command = Console.ReadLine()) != "Clone them!")
             {
-                int[] currentDna = input
-                    .Split("!", StringSplitOptions.RemoveEmptyEntries)
-                    .Select(int.Parse)
-                    .ToArray();
+                int[] arr = command.Split("!", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+                int currCounter = 0;
+                int currSum = 0;
+                bool isBestIndex = true;
 
-                currSemple++;
-                int sum = 0;
-                int currentLen = 0;
-                int currentBestLen = 0;
-                int currentEndIndex = 0;
-                int currentStartIndex = 0;
-
-                for (int j = 0; j < currentDna.Length; j++)
+                for (int i = 0; i < arr.Length; i++)
                 {
-                    sum += currentDna[j];
-                }
-
-                for (int a = 0; a < currentDna.Length; a++)
-                {
-                    if (currentDna[a] == 1)
+                    currSum += arr[i];
+                    for (int k = i + 1; k < arr.Length; k++)
                     {
-                        currentLen++;
-                        currentEndIndex = a;
-
-                        if (currentLen > currentBestLen)
+                        if (arr[i] + arr[k] == 2)
                         {
-                            currentBestLen = currentLen;
+                            if (isBestIndex)
+                            {
+                                currIndex = i;
+                                isBestIndex = false;
+                            }
+                            currCounter++;
                         }
+                        break;
                     }
-                    else
+
+                }
+                if (currCounter >= counter)
+                {
+                    if (currIndex < bestIndex)
                     {
-                        currentLen = 0;
+                        bestIndex = currIndex;
+                        bestDNAseq = arr;
+                        counter = currCounter;
+                        bestSum = currSum;
+                        bestSample = sample;
                     }
-
+                    else if (currIndex == bestIndex && currSum > bestSum)
+                    {
+                        bestIndex = currIndex;
+                        bestDNAseq = arr;
+                        counter = currCounter;
+                        bestSum = currSum;
+                        bestSample = sample;
+                    }
+                    else if (currIndex > bestIndex && currSum > bestSum)
+                    {
+                        bestIndex = currIndex;
+                        bestDNAseq = arr;
+                        counter = currCounter;
+                        bestSum = currSum;
+                        bestSample = sample;
+                    }
                 }
-                currentStartIndex = Math.Abs(currentEndIndex - currentBestLen) - 1;
-
-                if (currentBestLen >= bestLen && currentStartIndex < bestIndex )
-                {
-                    bestDnaSum = sum;
-                    bestSemple = currSemple;
-                    bestSequens = currentDna;
-                    bestLen = currentBestLen;
-                    bestIndex = currentStartIndex;
-                }
-                if (currentBestLen >= bestLen && currentStartIndex == bestIndex && sum > bestDnaSum)
-                {
-                    bestDnaSum = sum;
-                    bestSemple = currSemple;
-                    bestSequens = currentDna;
-                    bestLen = currentBestLen;
-                    bestIndex = currentStartIndex;
-                }
-                if (currentBestLen > bestLen)
-                {
-                    bestDnaSum = sum;
-                    bestSemple = currSemple;
-                    bestSequens = currentDna;
-                    bestLen = currentBestLen;
-                    bestIndex = currentStartIndex;
-                }
-
-                input = Console.ReadLine();
+                sample++;
             }
-            Console.WriteLine($"Best DNA sample {bestSemple} with sum: {bestDnaSum}.");
-            Console.WriteLine(string.Join(" ", bestSequens));
+            Console.WriteLine($"Best DNA sample {bestSample} with sum: {bestSum}.");
+            Console.WriteLine(string.Join(" ", bestDNAseq));
         }
     }
 }
