@@ -1,129 +1,75 @@
 using System;
 using System.Linq;
 
-namespace _10._LadyBugs
+namespace MaxSequenceOfEqualElements
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int sizeOfFild = int.Parse(Console.ReadLine());
-            int[] initialIndexesArr = Console.ReadLine()
-                    .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                    .Select(int.Parse)
-                    .ToArray();
-            int[] ladyBugsFildArr = new int[sizeOfFild];
+            int fieldSize = int.Parse(Console.ReadLine());
+            int[] ladyBugIndexes = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToArray();
+            int[] fieldOfLbArr = new int[fieldSize]; 
+            string command;
 
-            for (int i = 0; i < ladyBugsFildArr.Length; i++)
+            for (int i = 0; i < fieldOfLbArr.Length; i++)
             {
-                if (initialIndexesArr.Contains(i))
+                if (ladyBugIndexes.Contains(i))
                 {
-                    ladyBugsFildArr[i] = 1;
+                    fieldOfLbArr[i] = 1;
                 }
             }
-
-            while (true)
+            while ((command = Console.ReadLine()) != "end")
             {
-                string command = Console.ReadLine();
-
-                if (command == "end")
-                {
-                    break;
-                }
-
-                string[] commandArr = command
-                    .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                    .ToArray();
-
-                int ladybugIndex = int.Parse(commandArr[0]);
+                string[] commandArr = command.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToArray();
+                int initialIndex = int.Parse(commandArr[0]);
                 string direction = commandArr[1];
-                int flyLength = int.Parse(commandArr[2]);
+                int flyLenght = int.Parse(commandArr[2]);
 
-                if (ladybugIndex >= 0 && ladybugIndex < ladyBugsFildArr.Length)
+                if (initialIndex >= 0 && initialIndex < fieldSize)
                 {
-                    if (ladyBugsFildArr[ladybugIndex] == 1)
+                    if (direction == "right")
                     {
-                        if (direction == "right")
+                        if (fieldOfLbArr[initialIndex] == 1)
                         {
-                            if (flyLength != 0)
+                            fieldOfLbArr[initialIndex] = 0;
+                            int sumIndexFlyLenght = initialIndex + flyLenght;
+                            if (sumIndexFlyLenght >= 0 && sumIndexFlyLenght < fieldSize)
                             {
-                                ladyBugsFildArr[ladybugIndex] = 0;
-                            }
-
-                            if (ladybugIndex + flyLength < ladyBugsFildArr.Length &&
-                                ladybugIndex + flyLength >= 0 &&
-                                ladybugIndex < ladyBugsFildArr.Length - 1)
-                            {
-                                if (ladyBugsFildArr[ladybugIndex + 1] == 1)
+                                for (int i = initialIndex + flyLenght; i < fieldOfLbArr.Length; i += flyLenght)
                                 {
-                                    for (int j = ladybugIndex + 1; j < ladyBugsFildArr.Length; j++)
+                                    if (fieldOfLbArr[i] == 0)
                                     {
-                                        if (ladyBugsFildArr[j] == 1)
-                                        {
-                                            continue;
-                                        }
-                                        else
-                                        {
-                                            ladyBugsFildArr[j] = 1;
-                                        }
+                                        fieldOfLbArr[i] = 1;
                                         break;
                                     }
                                 }
-                                ladyBugsFildArr[ladybugIndex + flyLength] = 1;
-                                continue;
                             }
                         }
-                        else if (direction == "left")
+                    }
+                    else if (direction == "left")
+                    {
+                        if (fieldOfLbArr[initialIndex] == 1)
                         {
-                            if (flyLength != 0)
+                            fieldOfLbArr[initialIndex] = 0;
+                            int sumIndexFlyLenght = initialIndex - flyLenght;
+                            if (sumIndexFlyLenght >= 0 && sumIndexFlyLenght <= fieldSize)
                             {
-                                ladyBugsFildArr[ladybugIndex] = 0;
-                            }
-
-                            if (ladybugIndex - flyLength < 0)
-                            {
-                                ladyBugsFildArr[ladybugIndex] = 0;
-                            }
-                            else if (ladybugIndex - flyLength < ladyBugsFildArr.Length)
-                            {
-                                if (ladyBugsFildArr[ladybugIndex - 1] == 1)
+                                for (int i = initialIndex - flyLenght; i >= 0; i -= flyLenght)
                                 {
-                                    for (int j = ladybugIndex - 1; j >= 0; j--)
+                                    if (fieldOfLbArr[i] == 0)
                                     {
-                                        if (ladyBugsFildArr[j] == 1)
-                                        {
-                                            continue;
-                                        }
-                                        else
-                                        {
-                                            ladyBugsFildArr[j] = 1;
-                                            break;
-                                        }
-
+                                        fieldOfLbArr[i] = 1;
+                                        break;
                                     }
                                 }
-                                else if (ladyBugsFildArr[ladybugIndex + 1] == 1)
-                                {
-                                    for (int j = ladybugIndex + Math.Abs(flyLength); j < ladyBugsFildArr.Length; j++)
-                                    {
-                                        if (ladyBugsFildArr[j] == 1)
-                                        {
-                                            continue;
-                                        }
-                                        else
-                                        {
-                                            ladyBugsFildArr[j] = 1;
-                                            break;
-                                        }
-                                    }
-                                }
-                                ladyBugsFildArr[ladybugIndex - flyLength] = 1;
                             }
                         }
                     }
                 }
             }
-            Console.WriteLine(string.Join(" ", ladyBugsFildArr));
+            Console.WriteLine(string.Join(" ", fieldOfLbArr));
         }
     }
 }
