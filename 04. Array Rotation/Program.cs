@@ -1,25 +1,17 @@
-using System;
-using System.Linq;
+int[] arr = Console.ReadLine().Split().Select(int.Parse).ToArray();
+int rotations = int.Parse(Console.ReadLine());
 
-namespace MaxSequenceOfEqualElements
+
+for (int i = 0; i < rotations % arr.Length; i++)
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            int[] arr = Console.ReadLine().Split().Select(int.Parse).ToArray();
-            int rotations = int.Parse(Console.ReadLine());
+    int firstElement = arr[0];
 
-            for (int i = 0; i < rotations % arr.Length; i++)
-            {
-                int firstIndex = arr[0];
-                for (int j = 0; j < arr.Length - 1; j++)
-                {
-                    arr[j] = arr[j + 1];
-                }
-                arr[arr.Length - 1] = firstIndex;
-            }
-            Console.WriteLine(string.Join(" ", arr));
-        }
+    for (int k = 0; k < arr.Length - 1; k++)
+    {
+        arr[k] = arr[k + 1];
     }
+
+    arr[arr.Length - 1] = firstElement;
 }
+
+Console.WriteLine(string.Join(" ", arr));
